@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wealth Path: Clarity and control over your financial future</title>
+<meta name="description" content="Answer four questions about your money and get a clear picture of where you stand, plus a short plan to move forward.">
+<style>
+  :root {
+    --mist: #E6ECE8;
+    --paper: #F8FAF8;
+    --ink: #17201D;
+    --muted: #56655F;
+    --line: #CBD6D0;
+    --pine: #1D5545;
+    --pine-deep: #123A30;
+    --pine-soft: #D6E5DE;
+    --marigold: #E3A23B;
+    --marigold-soft: #F7E5C4;
+    --brick: #B0463A;
+    --brick-soft: #F2D9D4;
+
+    --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+    --sans: "Segoe UI Variable Text", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+
+    --r-panel: 20px;
+    --r-control: 10px;
+    --ease: cubic-bezier(.2, .7, .2, 1);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--mist);
+    color: var(--ink);
+    font: 16px/1.55 var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.12; margin: 0; letter-spacing: -0.01em; }
+  p { margin: 0; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  .num { font-variant-numeric: tabular-nums lining-nums; }
+  :focus-visible { outline: 3px solid var(--marigold); outline-offset: 2px; border-radius: 6px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- Header ---------- */
+  .topbar { padding: 22px 0; }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+  .brand svg { flex: none; }
+  .brand-name { font-family: var(--serif); font-size: 22px; font-weight: 600; }
+  .brand-tag { font-size: 14px; color: var(--muted); padding-left: 14px; margin-left: 2px; border-left: 1px solid var(--line); }
+  .nav { display: flex; gap: 6px; }
+  .nav button {
+    background: none; border: 0; padding: 9px 14px; border-radius: 999px; cursor: pointer;
+    font-size: 15px; color: var(--muted);
+  }
+  .nav button:hover { color: var(--ink); background: rgba(29, 85, 69, .08); }
+  .nav button[aria-current="true"] { color: var(--pine-deep); background: var(--pine-soft); font-weight: 600; }
+  .nav button:disabled { opacity: .45; cursor: not-allowed; background: none; }
+  .nav .nav-book { background: var(--pine); color: #fff; font-weight: 600; }
+  .nav .nav-book:hover { background: var(--pine-deep); color: #fff; }
+
+  /* ---------- Buttons & fields ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    border: 0; border-radius: 999px; padding: 14px 26px; font-weight: 600; font-size: 16px;
+    cursor: pointer; transition: background .2s, transform .1s;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: var(--pine); color: #fff; }
+  .btn-primary:hover { background: var(--pine-deep); }
+  .btn-ghost { background: transparent; color: var(--muted); padding-left: 6px; padding-right: 6px; }
+  .btn-ghost:hover { color: var(--ink); }
+  .link-btn { background: none; border: 0; padding: 0; color: var(--pine); font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+  .field { display: grid; gap: 6px; }
+  .field label, .field legend { font-size: 14px; font-weight: 600; }
+  .input {
+    width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-control);
+    background: #fff; transition: border-color .2s, box-shadow .2s;
+  }
+  .input:focus { outline: none; border-color: var(--pine); box-shadow: 0 0 0 3px rgba(29, 85, 69, .18); }
+  .input[aria-invalid="true"] { border-color: var(--brick); }
+  .error { color: var(--brick); font-size: 14px; min-height: 0; }
+  .error:empty { display: none; }
+
+  /* ---------- Intake ---------- */
+  .intake {
+    display: grid; grid-template-columns: minmax(0, 1fr) 380px;
+    background: var(--paper); border-radius: var(--r-panel); overflow: hidden;
+    min-height: 620px; box-shadow: 0 1px 0 var(--line), 0 24px 60px -36px rgba(18, 58, 48, .45);
+  }
+  .stage { padding: 64px 64px 48px; display: flex; flex-direction: column; }
+  .stage-body { flex: 1; display: flex; flex-direction: column; justify-content: center; max-width: 560px; }
+  .stage-body.enter-fwd { animation: enterFwd .45s var(--ease); }
+  .stage-body.enter-back { animation: enterBack .45s var(--ease); }
+  @keyframes enterFwd { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
+  @keyframes enterBack { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: none; } }
+
+  .step-count { color: var(--muted); font-size: 15px; margin-bottom: 18px; }
+  .step-count strong { color: var(--pine); }
+  .welcome-title { font-size: clamp(38px, 5vw, 58px); max-width: 13ch; }
+  .welcome-lede { font-size: 19px; color: var(--muted); margin-top: 22px; max-width: 44ch; }
+  .welcome-note { font-size: 14px; color: var(--muted); margin-top: 16px; }
+  .question { font-size: clamp(30px, 3.6vw, 42px); max-width: 18ch; }
+  .help { color: var(--muted); margin-top: 14px; max-width: 48ch; }
+
+  .money {
+    display: flex; align-items: baseline; gap: 6px; margin-top: 36px;
+    border-bottom: 2px solid var(--line); padding-bottom: 6px; transition: border-color .2s;
+  }
+  .money:focus-within { border-color: var(--pine); }
+  .money.invalid { border-color: var(--brick); }
+  .money span { font-family: var(--serif); font-size: 40px; color: var(--muted); }
+  .money input {
+    flex: 1; min-width: 0; border: 0; background: transparent; outline: none;
+    font-family: var(--serif); font-size: 52px; font-weight: 600; padding: 0;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .money input::placeholder { color: #B5C2BC; }
+  .money-suffix { font-size: 16px !important; font-family: var(--sans) !important; }
+  .live-hint { margin-top: 14px; min-height: 26px; color: var(--pine); font-weight: 600; }
+  .live-hint.warn { color: var(--brick); }
+
+  .goals { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; border: 0; padding: 0; }
+  .goal { position: relative; }
+  .goal input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .goal label {
+    display: grid; gap: 4px; padding: 18px 18px 18px 50px; border: 1.5px solid var(--line);
+    border-radius: 14px; background: #fff; cursor: pointer; transition: border-color .2s, background .2s;
+  }
+  .goal label::before {
+    content: ""; position: absolute; left: 18px; top: 21px; width: 18px; height: 18px;
+    border-radius: 50%; border: 1.5px solid var(--line); background: #fff; transition: all .2s;
+  }
+  .goal strong { font-size: 16px; }
+  .goal span { font-size: 14px; color: var(--muted); }
+  .goal input:hover + label { border-color: var(--pine); }
+  .goal input:checked + label { border-color: var(--pine); background: var(--pine-soft); }
+  .goal input:checked + label::before { border: 5px solid var(--pine); }
+  .goal input:focus-visible + label { outline: 3px solid var(--marigold); outline-offset: 2px; }
+
+  .stage-actions { display: flex; align-items: center; gap: 14px; margin-top: 40px; }
+  .stage-foot { margin-top: 28px; font-size: 13px; color: var(--muted); }
+  .mobile-progress { display: none; height: 4px; background: var(--line); border-radius: 4px; margin-bottom: 28px; overflow: hidden; }
+  .mobile-progress div { height: 100%; background: var(--marigold); width: 0; transition: width .5s var(--ease); }
+
+  /* The trail: the one bold element */
+  .trail {
+    background: var(--pine-deep); color: #E8F0EC; padding: 36px 30px 30px;
+    display: flex; flex-direction: column; position: relative;
+  }
+  .trail-head { font-family: var(--serif); font-size: 20px; }
+  .trail-sub { font-size: 14px; color: #9FB8AE; margin-top: 4px; }
+  .trail svg { flex: 1; width: 100%; height: auto; margin-top: 10px; overflow: visible; }
+  .trail .route-bg { fill: none; stroke: #2C5649; stroke-width: 3; stroke-dasharray: 2 9; stroke-linecap: round; }
+  .trail .route { fill: none; stroke: var(--marigold); stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset .9s var(--ease); }
+  .trail .wp { fill: var(--pine-deep); stroke: #3E6B5D; stroke-width: 2.5; transition: fill .4s, stroke .4s; }
+  .trail .wp.done { fill: var(--marigold); stroke: var(--marigold); }
+  .trail .wp.here { stroke: var(--marigold); }
+  .trail .wp-label { fill: #9FB8AE; font: 13px var(--sans); }
+  .trail .wp-value { fill: #fff; font: 600 16px var(--serif); font-variant-numeric: tabular-nums; }
+  .trail .flag { fill: var(--marigold); }
+  .trail .pulse { fill: none; stroke: var(--marigold); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
+  .trail .pulse.on { animation: pulse 2.4s var(--ease) infinite; }
+  @keyframes pulse { 0% { opacity: .8; transform: scale(1); } 100% { opacity: 0; transform: scale(2.6); } }
+
+  /* ---------- Dashboard ---------- */
+  .dash { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 28px; align-items: start; }
+  .panel { background: var(--paper); border-radius: var(--r-panel); padding: 30px; box-shadow: 0 1px 0 var(--line); }
+  .panel h2 { font-size: 22px; }
+  .panel-note { color: var(--muted); font-size: 15px; margin-top: 6px; }
+
+  .verdict { padding: 44px 44px 40px; background: var(--pine-deep); color: #fff; position: relative; overflow: hidden; }
+  .verdict-svg { position: absolute; right: -20px; bottom: -10px; width: 340px; opacity: .9; pointer-events: none; }
+  .health {
+    display: inline-flex; align-items: center; gap: 9px; padding: 7px 14px 7px 12px; border-radius: 999px;
+    font-size: 15px; font-weight: 600; background: rgba(255, 255, 255, .1); color: #fff;
+  }
+  .health i { width: 10px; height: 10px; border-radius: 50%; background: var(--marigold); }
+  .health[data-level="poor"] i { background: #F08A7E; }
+  .health[data-level="strong"] i { background: #7FD3A8; }
+  .verdict h1 { font-size: clamp(34px, 4.4vw, 52px); margin-top: 22px; max-width: 16ch; position: relative; }
+  .verdict p { color: #C3D6CE; margin-top: 16px; max-width: 52ch; font-size: 17px; position: relative; }
+
+  .dash-main { display: grid; gap: 20px; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  .flow { margin-top: 26px; display: grid; gap: 22px; }
+  .flow-row { display: grid; gap: 8px; }
+  .flow-top { display: flex; justify-content: space-between; align-items: baseline; }
+  .flow-top span { color: var(--muted); }
+  .flow-top strong { font-family: var(--serif); font-size: 24px; }
+  .track { height: 18px; background: #E3EAE6; border-radius: 6px; overflow: hidden; }
+  .fill { height: 100%; border-radius: 6px; transition: width .7s var(--ease); width: 0; }
+  .fill.income { background: var(--pine); }
+  .fill.expenses { background: var(--marigold); }
+  .fill.expenses.over { background: var(--brick); }
+  .flow-result {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    padding-top: 18px; border-top: 1px solid var(--line);
+  }
+  .flow-result strong { font-family: var(--serif); font-size: 28px; }
+  .flow-result .neg { color: var(--brick); }
+  .flow-result .pos { color: var(--pine); }
+
+  .big-figure { font-family: var(--serif); font-size: 56px; font-weight: 600; line-height: 1; margin-top: 18px; }
+  .scale { position: relative; margin-top: 26px; }
+  .zones { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 3px; height: 12px; }
+  .zones div:nth-child(1) { background: var(--brick-soft); border-radius: 6px 0 0 6px; }
+  .zones div:nth-child(2) { background: var(--marigold-soft); }
+  .zones div:nth-child(3) { background: var(--pine-soft); border-radius: 0 6px 6px 0; }
+  .zone-labels { display: grid; grid-template-columns: 1fr 1fr 2fr; font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .zone-labels span:last-child { display: flex; justify-content: space-between; }
+  .marker {
+    position: absolute; top: -6px; width: 4px; height: 24px; background: var(--ink); border-radius: 2px;
+    transform: translateX(-50%); transition: left .7s var(--ease); left: 0;
+  }
+  .cushion-track { position: relative; margin-top: 26px; }
+  .cushion-track .track { height: 12px; }
+  .cushion-track .fill { background: var(--pine); }
+  .tick { position: absolute; top: -4px; height: 20px; width: 2px; background: var(--ink); opacity: .5; }
+  .tick-labels { position: relative; height: 20px; font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .tick-labels span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+  .tick-labels span:first-child { transform: none; }
+  .tick-labels span:last-child { transform: translateX(-100%); }
+
+  .plan-list { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 0; counter-reset: step; }
+  .plan-list li {
+    counter-increment: step; display: grid; grid-template-columns: 52px 1fr; gap: 6px 18px;
+    padding: 22px 0; border-top: 1px solid var(--line);
+  }
+  .plan-list li::before {
+    content: counter(step); grid-row: span 2; font-family: var(--serif); font-size: 34px; line-height: 1;
+    color: var(--marigold); font-weight: 600;
+  }
+  .plan-list h3 { font-size: 20px; }
+  .plan-list p { color: #3A4843; max-width: 62ch; }
+
+  .aside { position: sticky; top: 20px; display: grid; gap: 20px; }
+  .aside .panel { padding: 26px; }
+  .adjust { display: grid; gap: 16px; margin-top: 20px; }
+  .adjust .money-input { position: relative; }
+  .adjust .money-input span { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+  .adjust .money-input .input { padding-left: 28px; font-variant-numeric: tabular-nums; }
+  .aside-cta { background: var(--marigold-soft); }
+  .aside-cta p { margin: 8px 0 18px; color: #4E4430; }
+
+  /* ---------- Booking ---------- */
+  .booking { display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; padding: 56px; }
+  .booking-intro h2 { font-size: clamp(30px, 3.4vw, 40px); max-width: 14ch; }
+  .booking-intro > p { color: var(--muted); margin-top: 14px; max-width: 40ch; font-size: 17px; }
+  .expect { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 14px; }
+  .expect li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; }
+  .expect svg { margin-top: 3px; }
+  .form { display: grid; gap: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  fieldset.field { border: 0; padding: 0; margin: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .chip { position: relative; }
+  .chip input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .chip label {
+    display: inline-block; padding: 9px 14px; border-radius: 999px; border: 1px solid var(--line);
+    background: #fff; cursor: pointer; font-size: 14px; transition: all .15s;
+  }
+  .chip label small { display: block; font-size: 12px; color: var(--muted); }
+  .chip.day label { text-align: center; min-width: 74px; border-radius: 12px; }
+  .chip input:hover + label { border-color: var(--pine); }
+  .chip input:checked + label { background: var(--pine); color: #fff; border-color: var(--pine); }
+  .chip input:checked + label small { color: #C3D6CE; }
+  .chip input:focus-visible + label { outline: 3px solid var(--marigold); outline-offset: 2px; }
+  .sub-legend { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  textarea.input { min-height: 96px; resize: vertical; }
+  .confirm { display: grid; gap: 14px; align-content: center; text-align: left; animation: enterFwd .45s var(--ease); }
+  .confirm .check { width: 52px; height: 52px; border-radius: 50%; background: var(--pine-soft); display: grid; place-items: center; }
+  .confirm h3 { font-size: 30px; }
+  .confirm dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 20px; margin: 8px 0 0; }
+  .confirm dt { color: var(--muted); }
+  .confirm dd { margin: 0; font-weight: 600; }
+
+  section[hidden] { display: none !important; }
+  .block { margin-top: 28px; }
+  footer { padding: 40px 0 56px; color: var(--muted); font-size: 13px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1000px) {
+    .dash { grid-template-columns: minmax(0, 1fr); }
+    .aside { position: static; }
+    .booking { grid-template-columns: 1fr; gap: 36px; padding: 40px; }
+  }
+  @media (max-width: 820px) {
+    .intake { grid-template-columns: 1fr; min-height: 0; }
+    .trail { display: none; }
+    .mobile-progress { display: block; }
+    .stage { padding: 40px 28px 32px; }
+    .brand-tag { display: none; }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding: 0 16px; }
+    .nav button:not(.nav-book) { display: none; }
+    .split, .form-row, .goals { grid-template-columns: minmax(0, 1fr); }
+    .verdict { padding: 32px 26px; }
+    .verdict-svg { display: none; }
+    .panel { padding: 24px; }
+    .booking { padding: 28px 22px; }
+    .money input { font-size: 42px; }
+    .big-figure { font-size: 46px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#" id="brandHome" aria-label="Wealth Path home">
+      <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true">
+        <circle cx="18" cy="18" r="18" fill="#1D5545"/>
+        <path d="M9 27 C 9 20, 24 22, 24 15 S 15 10, 18 7" fill="none" stroke="#E3A23B" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="18" cy="7" r="2.6" fill="#E3A23B"/>
+      </svg>
+      <span class="brand-name">Wealth Path</span>
+      <span class="brand-tag">Clarity and control over your financial future.</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <button type="button" id="navIntake" aria-current="true">Your answers</button>
+      <button type="button" id="navPlan" disabled>Your plan</button>
+      <button type="button" class="nav-book" id="navBook">Book a consultation</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Intake -->
+  <section id="intakeView" aria-label="Financial intake">
+    <div class="intake">
+      <div class="stage">
+        <div class="mobile-progress" aria-hidden="true"><div id="mobileBar"></div></div>
+        <form id="stepForm" class="stage-body" novalidate></form>
+        <p class="stage-foot">Your answers stay in this browser. Nothing is sent anywhere until you book a consultation.</p>
+      </div>
+      <aside class="trail" aria-label="Your progress">
+        <p class="trail-head">Your path</p>
+        <p class="trail-sub" id="trailSub">Four stops between today and your goal.</p>
+        <svg id="trailSvg" viewBox="0 0 320 520" role="img" aria-labelledby="trailTitle">
+          <title id="trailTitle">Progress through the four intake questions</title>
+          <path id="routeBg" class="route-bg" d="M70 500 C 70 430, 250 440, 250 370 S 70 300, 70 235 S 250 165, 250 110 S 160 50, 160 30"/>
+          <path id="route" class="route" d="M70 500 C 70 430, 250 440, 250 370 S 70 300, 70 235 S 250 165, 250 110 S 160 50, 160 30"/>
+          <g id="waypoints"></g>
+        </svg>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Dashboard -->
+  <section id="dashView" hidden aria-label="Your financial summary">
+    <div class="dash">
+      <div class="dash-main">
+        <div class="panel verdict" aria-live="polite">
+          <svg class="verdict-svg" viewBox="0 0 340 200" aria-hidden="true">
+            <path d="M10 190 C 60 190, 80 120, 150 120 S 230 60, 330 20" fill="none" stroke="#2C5649" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>
+            <path id="verdictRoute" d="M10 190 C 60 190, 80 120, 150 120 S 230 60, 330 20" fill="none" stroke="#E3A23B" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+          <span class="health" id="healthPill"><i></i><span id="healthText">Average financial health</span></span>
+          <h1 id="verdictTitle">You keep 0% of what you earn each month.</h1>
+          <p id="verdictBody"></p>
+        </div>
+
+        <div class="panel">
+          <h2>Income and spending</h2>
+          <p class="panel-note">Each month, side by side.</p>
+          <div class="flow">
+            <div class="flow-row">
+              <div class="flow-top"><span>Comes in</span><strong class="num" id="incomeVal">$0</strong></div>
+              <div class="track"><div class="fill income" id="incomeBar"></div></div>
+            </div>
+            <div class="flow-row">
+              <div class="flow-top"><span>Goes out</span><strong class="num" id="expenseVal">$0</strong></div>
+              <div class="track"><div class="fill expenses" id="expenseBar"></div></div>
+            </div>
+            <div class="flow-result">
+              <span id="surplusLabel">Left over each month</span>
+              <strong class="num" id="surplusVal">$0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="panel">
+            <h2>Savings rate</h2>
+            <p class="panel-note">Share of income you keep.</p>
+            <p class="big-figure num" id="rateVal">0%</p>
+            <div class="scale" aria-hidden="true">
+              <div class="zones"><div></div><div></div><div></div></div>
+              <div class="marker" id="rateMarker"></div>
+              <div class="zone-labels"><span>Poor</span><span>Average</span><span><span>Strong</span><span>40%+</span></span></div>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Safety cushion</h2>
+            <p class="panel-note">Months your savings would cover.</p>
+            <p class="big-figure num" id="cushionVal">0 mo</p>
+            <div class="cushion-track" aria-hidden="true">
+              <div class="track"><div class="fill" id="cushionBar"></div></div>
+              <div class="tick" style="left:50%"></div>
+              <div class="tick-labels"><span style="left:0">0</span><span style="left:50%">3 months</span><span style="left:100%">6+</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" id="planPanel">
+          <h2 id="planTitle">Your plan</h2>
+          <p class="panel-note">Work through these in order. Each one makes the next easier.</p>
+          <ol class="plan-list" id="planList" aria-live="polite"></ol>
+        </div>
+      </div>
+
+      <aside class="aside">
+        <div class="panel">
+          <h2>Your numbers</h2>
+          <p class="panel-note">Change any figure and your summary updates instantly.</p>
+          <div class="adjust">
+            <div class="field">
+              <label for="adjIncome">Monthly income</label>
+              <div class="money-input"><span>$</span><input class="input" id="adjIncome" inputmode="decimal" autocomplete="off"></div>
+            </div>
+            <div class="field">
+              <label for="adjExpenses">Monthly expenses</label>
+              <div class="money-input"><span>$</span><input class="input" id="adjExpenses" inputmode="decimal" autocomplete="off"></div>
+            </div>
+            <div class="field">
+              <label for="adjSavings">Savings</label>
+              <div class="money-input"><span>$</span><input class="input" id="adjSavings" inputmode="decimal" autocomplete="off"></div>
+            </div>
+            <div class="field">
+              <label for="adjGoal">Goal</label>
+              <select class="input" id="adjGoal"></select>
+            </div>
+            <p class="error" id="adjError" role="alert"></p>
+            <div><button type="button" class="link-btn" id="restart">Start over</button></div>
+          </div>
+        </div>
+        <div class="panel aside-cta">
+          <h2>Want a second pair of eyes?</h2>
+          <p>A coach will walk through this plan with you and adjust it to your life.</p>
+          <button type="button" class="btn btn-primary" id="asideBook">Book a consultation</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section id="book" class="block" aria-labelledby="bookTitle">
+    <div class="panel booking">
+      <div class="booking-intro">
+        <h2 id="bookTitle">Talk it through with a coach</h2>
+        <p>A free 30-minute video call. Bring your questions; we'll bring your numbers.</p>
+        <ul class="expect">
+          <li><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#D6E5DE"/><path d="M6 10.5l2.5 2.5L14 7.5" fill="none" stroke="#1D5545" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>We review your summary together and check the assumptions behind it.</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#D6E5DE"/><path d="M6 10.5l2.5 2.5L14 7.5" fill="none" stroke="#1D5545" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>You leave with three actions for the next 90 days, in writing.</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#D6E5DE"/><path d="M6 10.5l2.5 2.5L14 7.5" fill="none" stroke="#1D5545" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>No product sales. We don't earn commission on anything we suggest.</span></li>
+        </ul>
+      </div>
+
+      <div id="bookingArea">
+        <form class="form" id="bookForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="bName">Name</label>
+              <input class="input" id="bName" name="name" autocomplete="name" required>
+              <p class="error" id="bNameErr"></p>
+            </div>
+            <div class="field">
+              <label for="bEmail">Email</label>
+              <input class="input" id="bEmail" name="email" type="email" autocomplete="email" required>
+              <p class="error" id="bEmailErr"></p>
+            </div>
+          </div>
+          <fieldset class="field">
+            <legend>Preferred time</legend>
+            <div class="chips" id="dayChips" role="radiogroup" aria-label="Day"></div>
+            <p class="sub-legend">Time of day (your local time)</p>
+            <div class="chips" id="timeChips" role="radiogroup" aria-label="Time"></div>
+            <p class="error" id="bTimeErr"></p>
+          </fieldset>
+          <div class="field">
+            <label for="bNotes">Notes <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+            <textarea class="input" id="bNotes" name="notes" placeholder="Anything you'd like the coach to know beforehand"></textarea>
+          </div>
+          <div><button class="btn btn-primary" type="submit">Request consultation</button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; <span id="year"></span> Wealth Path</span>
+    <span>Figures here are estimates for education, not financial advice.</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  /* ---------------- Config ----------------
+     Set BOOKING_ENDPOINT to a URL (e.g. a Formspree or your own API) to receive
+     booking requests as JSON. Left empty, requests are kept in this browser only. */
+  const BOOKING_ENDPOINT = "";
+  const STORE_KEY = "wealthpath.v1";
+
+  const GOALS = [
+    { id: "save",   name: "Save more",       desc: "Build the habit and a bigger balance" },
+    { id: "debt",   name: "Get out of debt", desc: "Pay down cards and loans faster" },
+    { id: "invest", name: "Invest",          desc: "Grow money for the long term" },
+    { id: "home",   name: "Buy a home",      desc: "Save a down payment and get ready to borrow" }
+  ];
+
+  const STEPS = [
+    { key: "income",   label: "Income",   q: "What do you bring home each month?",
+      help: "Take-home pay after tax, from every source: salary, freelance work, benefits." },
+    { key: "expenses", label: "Spending", q: "What do you spend in a typical month?",
+      help: "Everything going out: housing, bills, groceries, transport, subscriptions and debt payments." },
+    { key: "savings",  label: "Savings",  q: "How much do you have saved right now?",
+      help: "Cash in checking and savings accounts you could reach within a week. Leave out retirement accounts." },
+    { key: "goal",     label: "Goal",     q: "What matters most to you right now?",
+      help: "Pick the one you'd most like to make progress on this year." }
+  ];
+
+  const $ = (id) => document.getElementById(id);
+  const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  const fmt = (n) => money.format(Math.round(n));
+  const pct = (r) => `${Math.round(r * 100)}%`;
+  const parseMoney = (s) => {
+    const clean = String(s ?? "").replace(/[^0-9.]/g, "");
+    if (clean === "" || clean === ".") return null;
+    const n = parseFloat(clean);
+    return Number.isFinite(n) ? n : null;
+  };
+  const groupDigits = (n) => n == null ? "" : new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(n);
+  const goalName = (id) => (GOALS.find(g => g.id === id) || {}).name || "";
+  const duration = (months) => {
+    if (!Number.isFinite(months) || months <= 0) return null;
+    if (months <= 1) return "about a month";
+    if (months < 18) return `about ${Math.ceil(months)} months`;
+    const yrs = Math.round(months / 6) / 2;
+    return `about ${yrs} years`;
+  };
+
+  /* ---------------- State ---------------- */
+  let state = { income: null, expenses: null, savings: null, goal: null };
+  let step = -1; // -1 = welcome
+
+  const load = () => {
+    try { const s = JSON.parse(localStorage.getItem(STORE_KEY)); if (s) state = { ...state, ...s }; } catch (e) {}
+  };
+  const save = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) {} };
+  const complete = () => state.income > 0 && state.expenses != null && state.savings != null && !!state.goal;
+
+  /* ---------------- Financial model ---------------- */
+  function analyze(s) {
+    const surplus = s.income - s.expenses;
+    const rate = s.income > 0 ? surplus / s.income : 0;
+    const months = s.expenses > 0 ? s.savings / s.expenses : (s.savings > 0 ? Infinity : 0);
+
+    let level = rate < 0.10 ? 0 : rate < 0.20 ? 1 : 2;
+    let reason;
+    const thinCushion = months < 1 && level > 0;
+    if (thinCushion) level -= 1;
+
+    const levels = ["poor", "average", "strong"];
+    const names = ["Poor", "Average", "Strong"];
+
+    if (thinCushion) {
+      reason = `Your savings rate is ${pct(rate)}, but your savings cover less than a month of spending. One surprise bill could undo several months of progress.`;
+    } else if (level === 2) {
+      reason = months >= 3
+        ? "You save at least a fifth of your income and have a real cushion behind you. The work now is pointing that money at your goal."
+        : "You save at least a fifth of your income. Building your cushion to three months will make that progress stick.";
+    } else if (level === 1) {
+      reason = "You're saving every month, which most people don't. Raising your rate toward 20% is where the next gains are.";
+    } else {
+      reason = surplus < 0
+        ? "You're spending more than you bring in, so your savings are shrinking each month. Your plan starts by closing that gap."
+        : "Very little is left at the end of the month, which makes any goal slow going. Your plan starts by freeing up room.";
+    }
+    return { surplus, rate, months, level: levels[level], levelName: names[level], reason };
+  }
+
+  function buildPlan(s, a) {
+    const recs = [];
+    const { surplus, rate, months } = a;
+
+    // 1. Cash flow first
+    if (surplus < 0) {
+      recs.push({ t: `Close the ${fmt(-surplus)} monthly gap`,
+        b: `List every expense from last month and mark each one fixed or flexible. Cut or pause the three largest flexible costs until spending sits below ${fmt(s.income)}. Until then, avoid new debt.` });
+    } else if (rate < 0.10) {
+      const need = Math.max(0, s.income * 0.10 - surplus);
+      recs.push({ t: "Free up 10% of your income",
+        b: `You have ${fmt(surplus)} left each month. Trimming ${fmt(need)} more from spending gets you to a 10% savings rate, the floor for steady progress. Subscriptions, takeout and insurance renewals are the quickest places to look.` });
+    }
+
+    // 2. Cushion
+    if (months < 3) {
+      const target = s.expenses * 3;
+      const gap = Math.max(0, target - s.savings);
+      const monthly = surplus > 0 ? surplus * 0.5 : 0;
+      const time = monthly > 0 ? duration(gap / monthly) : null;
+      recs.push({ t: `Build a ${fmt(target)} safety cushion`,
+        b: `That's three months of spending, kept in a separate high-yield savings account. You're ${fmt(gap)} away. ` +
+           (time ? `Moving half your monthly surplus (${fmt(monthly)}) there gets you to it in ${time}.`
+                 : `Once your spending is below your income, start with a fixed ${fmt(Math.max(25, s.income * 0.02))} a week.`) });
+    }
+
+    // 3. Goal-specific
+    const free = Math.max(0, surplus);
+    if (s.goal === "save") {
+      const target = s.income * 0.20;
+      if (rate < 0.20) {
+        const start = Math.max(50, free * 0.8);
+        recs.push({ t: `Automate ${fmt(start)} a month into savings`,
+          b: `Schedule the transfer for the day after payday so saving happens before spending. Raise it by 1% of your income every three months until you reach 20%, or ${fmt(target)} a month.` });
+      } else {
+        recs.push({ t: "Give every saved dollar a job",
+          b: `You already save more than 20%. Split the ${fmt(free)} into named accounts (cushion, next big purchase, long-term) so it's clear what each one is for and harder to spend by accident.` });
+      }
+    } else if (s.goal === "debt") {
+      const extra = free * 0.6;
+      recs.push(extra > 0
+        ? { t: `Send ${fmt(extra)} extra to your costliest debt`,
+            b: `Pay the minimum on everything, then put the extra toward the balance with the highest interest rate. When it's paid off, roll that whole payment into the next one. Keep at least $1,000 in savings so surprises don't go back on a card.` }
+        : { t: "Stop the balances from growing",
+            b: `Put cards on pause and call each lender to ask for a lower rate or a hardship plan. Once spending is below income, every spare dollar goes to the highest-interest balance first.` });
+    } else if (s.goal === "invest") {
+      if (months >= 3 && free > 0) {
+        const amt = Math.min(free, Math.max(free * 0.5, s.income * 0.10));
+        const r = 0.06 / 12, n = 240;
+        const fv = amt * ((Math.pow(1 + r, n) - 1) / r);
+        recs.push({ t: `Invest ${fmt(amt)} a month in index funds`,
+          b: `Take any employer retirement match first, since that's an instant return. Then invest the rest in low-cost, broad-market index funds. At a 6% average yearly return, that grows to about ${fmt(fv)} over 20 years.` });
+      } else {
+        recs.push({ t: "Finish your cushion, then start investing",
+          b: `Money you might need within a year shouldn't be in the market, where you could be forced to sell at a loss. Once your cushion reaches three months, keep the same transfer going and point it at a low-cost index fund.` });
+      }
+    } else if (s.goal === "home") {
+      const price = Math.round(s.income * 12 * 3 / 1000) * 1000;
+      const needed = Math.round(price * 0.13 / 100) * 100; // 10% down + ~3% closing
+      const have = Math.max(0, s.savings - s.expenses * 3);
+      const monthly = free * 0.6;
+      const time = monthly > 0 ? duration(Math.max(0, needed - have) / monthly) : null;
+      recs.push({ t: `Save ${fmt(needed)} for a down payment`,
+        b: `On your income, a home around ${fmt(price)} is a realistic starting point. A 10% down payment plus closing costs comes to roughly ${fmt(needed)}. ` +
+           (have >= needed ? `Your savings beyond your cushion already cover that, so the next step is getting pre-approved.`
+            : time ? `Saving ${fmt(monthly)} a month gets you there in ${time}. Keep total housing costs under ${fmt(s.income * 0.28)} a month.`
+                   : `Once you're saving each month, this becomes a dedicated account. Keep future housing costs under ${fmt(s.income * 0.28)} a month.`) });
+    }
+
+    // 4. Extras
+    if (recs.length < 3 && rate >= 0.20 && months > 6) {
+      const idle = s.savings - s.expenses * 6;
+      recs.push({ t: `Put ${fmt(idle)} of idle cash to work`,
+        b: `You hold more than six months of spending in cash. Keep six months as your cushion and move the rest toward your goal, where it can earn more than a savings account.` });
+    }
+    if (recs.length < 3 && surplus >= 0 && s.expenses / s.income > 0.7) {
+      recs.push({ t: "Renegotiate one fixed bill this month",
+        b: `Spending takes up ${pct(s.expenses / s.income)} of your income. Phone, internet and insurance providers often lower rates when asked. Every ${fmt(50)} saved is ${fmt(600)} a year.` });
+    }
+    if (recs.length < 3) {
+      recs.push({ t: "Check these numbers every three months",
+        b: `Spending drifts upward quietly. A short quarterly review, on your own or with a coach, keeps your plan matched to your life.` });
+    }
+    return recs.slice(0, 3);
+  }
+
+  /* ---------------- Trail ---------------- */
+  const route = $("route");
+  const routeLen = route.getTotalLength();
+  const STOPS = [0, 0.26, 0.5, 0.74, 1];
+  route.style.strokeDasharray = routeLen;
+  route.style.strokeDashoffset = routeLen;
+
+  function buildWaypoints() {
+    const g = $("waypoints");
+    const ns = "http://www.w3.org/2000/svg";
+    STOPS.forEach((t, i) => {
+      const p = route.getPointAtLength(routeLen * t);
+      const right = p.x < 160;
+      const grp = document.createElementNS(ns, "g");
+      if (i === STOPS.length - 1) {
+        const pole = document.createElementNS(ns, "path");
+        pole.setAttribute("d", `M${p.x} ${p.y} V${p.y - 26} l14 6 l-14 6`);
+        pole.setAttribute("class", "flag");
+        pole.setAttribute("stroke", "#E3A23B");
+        pole.setAttribute("stroke-width", "2");
+        grp.appendChild(pole);
+      }
+      const pulse = document.createElementNS(ns, "circle");
+      Object.entries({ cx: p.x, cy: p.y, r: 9, class: "pulse", id: `pulse${i}` }).forEach(([k, v]) => pulse.setAttribute(k, v));
+      const c = document.createElementNS(ns, "circle");
+      Object.entries({ cx: p.x, cy: p.y, r: 9, class: "wp", id: `wp${i}` }).forEach(([k, v]) => c.setAttribute(k, v));
+      const label = document.createElementNS(ns, "text");
+      const value = document.createElementNS(ns, "text");
+      const tx = i === STOPS.length - 1 ? p.x + 24 : right ? p.x + 22 : p.x - 22;
+      const anchor = i === STOPS.length - 1 || right ? "start" : "end";
+      const ty = i === STOPS.length - 1 ? p.y - 12 : p.y;
+      [[label, ty - 4, "wp-label"], [value, ty + 16, "wp-value"]].forEach(([el, y, cls]) => {
+        el.setAttribute("x", tx); el.setAttribute("y", y);
+        el.setAttribute("text-anchor", anchor); el.setAttribute("class", cls);
+      });
+      label.id = `wpl${i}`; value.id = `wpv${i}`;
+      label.textContent = i === 0 ? "Today" : STEPS[i - 1].label;
+      grp.append(pulse, c, label, value);
+      g.appendChild(grp);
+    });
+  }
+
+  function updateTrail() {
+    const reached = Math.max(0, step); // number of answered stops
+    route.style.strokeDashoffset = routeLen * (1 - STOPS[Math.min(reached, 4)]);
+    STOPS.forEach((_, i) => {
+      $(`wp${i}`).classList.toggle("done", i <= reached && step >= 0);
+      $(`pulse${i}`).classList.toggle("on", i === Math.min(reached, 4) && step < 4);
+    });
+    $("wpv0").textContent = "";
+    STEPS.forEach((s, idx) => {
+      const v = state[s.key];
+      const show = idx < reached;
+      $(`wpv${idx + 1}`).textContent = !show || v == null ? "" : s.key === "goal" ? goalName(v) : fmt(v);
+    });
+    $("trailSub").textContent = step < 0 ? "Four stops between today and your goal."
+      : step >= STEPS.length ? "All four answered." : `${STEPS.length - step} to go.`;
+    $("mobileBar").style.width = `${(Math.max(0, step) / STEPS.length) * 100}%`;
+  }
+
+  /* ---------------- Intake rendering ---------------- */
+  const form = $("stepForm");
+
+  function renderStep(dir = "fwd") {
+    form.classList.remove("enter-fwd", "enter-back");
+    void form.offsetWidth;
+    form.classList.add(dir === "back" ? "enter-back" : "enter-fwd");
+
+    if (step < 0) {
+      form.innerHTML = `
+        <h1 class="welcome-title">Clarity and control over your financial future.</h1>
+        <p class="welcome-lede">Answer four quick questions about your money. You'll see where you stand today and get a short plan for what to do next.</p>
+        <div class="stage-actions"><button class="btn btn-primary" type="submit">Start</button></div>
+        <p class="welcome-note">Takes about two minutes.</p>`;
+      form.querySelector("button").focus({ preventScroll: true });
+      updateTrail();
+      return;
+    }
+
+    const s = STEPS[step];
+    const last = step === STEPS.length - 1;
+    let control;
+    if (s.key === "goal") {
+      control = `<fieldset class="goals" role="radiogroup" aria-labelledby="qTitle">
+        ${GOALS.map(g => `<div class="goal">
+          <input type="radio" name="goal" id="g-${g.id}" value="${g.id}" ${state.goal === g.id ? "checked" : ""}>
+          <label for="g-${g.id}"><strong>${g.name}</strong><span>${g.desc}</span></label></div>`).join("")}
+      </fieldset>`;
+    } else {
+      control = `<div class="money" id="moneyWrap">
+          <span aria-hidden="true">$</span>
+          <input id="qInput" inputmode="decimal" autocomplete="off" placeholder="0" aria-labelledby="qTitle" aria-describedby="qHelp qErr qHint"
+            value="${groupDigits(state[s.key])}">
+          <span class="money-suffix" aria-hidden="true">/ month</span>
+        </div>
+        <p class="live-hint num" id="qHint" aria-live="polite"></p>`;
+    }
+    form.innerHTML = `
+      <p class="step-count">Question <strong>${step + 1}</strong> of ${STEPS.length}</p>
+      <h2 class="question" id="qTitle">${s.q}</h2>
+      <p class="help" id="qHelp">${s.help}</p>
+      ${control}
+      <p class="error" id="qErr" role="alert"></p>
+      <div class="stage-actions">
+        <button class="btn btn-primary" type="submit">${last ? "See my plan" : "Continue"}</button>
+        <button class="btn btn-ghost" type="button" id="backBtn">Back</button>
+      </div>`;
+
+    if (s.key === "savings") form.querySelector(".money-suffix").textContent = "in total";
+    $("backBtn").addEventListener("click", () => { step -= 1; renderStep("back"); });
+
+    const input = $("qInput");
+    if (input) {
+      input.addEventListener("input", () => { liveHint(s.key, parseMoney(input.value)); $("qErr").textContent = ""; $("moneyWrap").classList.remove("invalid"); });
+      input.addEventListener("blur", () => { const n = parseMoney(input.value); if (n != null) input.value = groupDigits(n); });
+      liveHint(s.key, parseMoney(input.value));
+      input.focus({ preventScroll: true });
+    } else {
+      const checked = form.querySelector("input:checked") || form.querySelector("input[type=radio]");
+      checked.focus({ preventScroll: true });
+      form.querySelectorAll("input[type=radio]").forEach(r => r.addEventListener("change", () => { $("qErr").textContent = ""; }));
+    }
+    updateTrail();
+  }
+
+  function liveHint(key, n) {
+    const hint = $("qHint");
+    if (!hint) return;
+    hint.classList.remove("warn");
+    if (n == null) { hint.textContent = ""; return; }
+    if (key === "income") hint.textContent = n > 0 ? `That's ${fmt(n * 12)} a year.` : "";
+    if (key === "expenses" && state.income > 0) {
+      const left = state.income - n;
+      const r = left / state.income;
+      hint.textContent = left >= 0 ? `That leaves ${fmt(left)} a month, a ${pct(r)} savings rate.`
+                                   : `That's ${fmt(-left)} more than you bring in each month.`;
+      hint.classList.toggle("warn", left < 0);
+    }
+    if (key === "savings" && state.expenses > 0) {
+      const m = n / state.expenses;
+      hint.textContent = `Enough to cover ${m < 1 ? "less than a month" : `${m.toFixed(1)} months`} of spending.`;
+    }
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (step < 0) { step = 0; renderStep(); return; }
+    const s = STEPS[step];
+    if (s.key === "goal") {
+      const sel = form.querySelector("input[name=goal]:checked");
+      if (!sel) { $("qErr").textContent = "Choose a goal to continue."; return; }
+      state.goal = sel.value;
+    } else {
+      const n = parseMoney($("qInput").value);
+      let msg = "";
+      if (n == null) msg = "Enter an amount in dollars, for example 4,500.";
+      else if (s.key === "income" && n <= 0) msg = "Enter an income above $0 so we can work out your savings rate.";
+      if (msg) { $("qErr").textContent = msg; $("moneyWrap").classList.add("invalid"); $("qInput").focus(); return; }
+      state[s.key] = n;
+    }
+    save();
+    step += 1;
+    if (step >= STEPS.length) { updateTrail(); setTimeout(showDashboard, 450); }
+    else renderStep();
+  });
+
+  /* ---------------- Dashboard ---------------- */
+  function renderDashboard() {
+    const a = analyze(state);
+    const pill = $("healthPill");
+    pill.dataset.level = a.level;
+    $("healthText").textContent = `${a.levelName} financial health`;
+    $("verdictTitle").textContent = a.surplus < 0
+      ? `You spend ${fmt(-a.surplus)} more than you earn each month.`
+      : `You keep ${pct(a.rate)} of what you earn each month.`;
+    $("verdictBody").textContent = a.reason;
+
+    const max = Math.max(state.income, state.expenses, 1);
+    $("incomeVal").textContent = fmt(state.income);
+    $("expenseVal").textContent = fmt(state.expenses);
+    $("incomeBar").style.width = `${(state.income / max) * 100}%`;
+    $("expenseBar").style.width = `${(state.expenses / max) * 100}%`;
+    $("expenseBar").classList.toggle("over", a.surplus < 0);
+    $("surplusLabel").textContent = a.surplus < 0 ? "Shortfall each month" : "Left over each month";
+    const sv = $("surplusVal");
+    sv.textContent = a.surplus < 0 ? `−${fmt(-a.surplus)}` : fmt(a.surplus);
+    sv.className = `num ${a.surplus < 0 ? "neg" : "pos"}`;
+
+    $("rateVal").textContent = pct(a.rate);
+    $("rateVal").style.color = a.rate < 0.10 ? "var(--brick)" : a.rate < 0.20 ? "#9A6516" : "var(--pine)";
+    $("rateMarker").style.left = `${Math.min(Math.max(a.rate, 0), 0.40) / 0.40 * 100}%`;
+
+    const m = a.months;
+    $("cushionVal").textContent = !Number.isFinite(m) ? "6+ mo" : m >= 10 ? `${Math.round(m)} mo` : `${m.toFixed(1)} mo`;
+    $("cushionBar").style.width = `${Math.min(Number.isFinite(m) ? m : 6, 6) / 6 * 100}%`;
+
+    $("planTitle").textContent = `Your plan to ${goalName(state.goal).toLowerCase()}`;
+    $("planList").innerHTML = buildPlan(state, a).map(r => `<li><h3>${r.t}</h3><p>${r.b}</p></li>`).join("");
+
+    // verdict path length follows health
+    const vr = $("verdictRoute"), vl = vr.getTotalLength();
+    vr.style.strokeDasharray = vl;
+    vr.style.transition = "stroke-dashoffset 1.2s var(--ease)";
+    vr.style.strokeDashoffset = vl * (1 - ({ poor: 0.25, average: 0.55, strong: 0.9 })[a.level]);
+  }
+
+  function fillAdjust() {
+    $("adjIncome").value = groupDigits(state.income);
+    $("adjExpenses").value = groupDigits(state.expenses);
+    $("adjSavings").value = groupDigits(state.savings);
+    $("adjGoal").value = state.goal;
+  }
+
+  function setView(view) {
+    const dash = view === "dash";
+    $("intakeView").hidden = dash;
+    $("dashView").hidden = !dash;
+    $("navIntake").setAttribute("aria-current", String(!dash));
+    $("navPlan").setAttribute("aria-current", String(dash));
+    $("navPlan").disabled = !complete();
+  }
+
+  function showDashboard() {
+    setView("dash");
+    fillAdjust();
+    renderDashboard();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  $("adjGoal").innerHTML = GOALS.map(g => `<option value="${g.id}">${g.name}</option>`).join("");
+  [["adjIncome", "income"], ["adjExpenses", "expenses"], ["adjSavings", "savings"]].forEach(([id, key]) => {
+    const el = $(id);
+    el.addEventListener("input", () => {
+      const n = parseMoney(el.value);
+      const bad = n == null || (key === "income" && n <= 0);
+      el.setAttribute("aria-invalid", String(bad));
+      $("adjError").textContent = bad ? (key === "income" ? "Income needs to be above $0." : "Enter an amount in dollars.") : "";
+      if (bad) return;
+      state[key] = n; save(); renderDashboard();
+    });
+    el.addEventListener("blur", () => { const n = parseMoney(el.value); if (n != null) el.value = groupDigits(n); });
+  });
+  $("adjGoal").addEventListener("change", (e) => { state.goal = e.target.value; save(); renderDashboard(); });
+
+  $("restart").addEventListener("click", () => {
+    state = { income: null, expenses: null, savings: null, goal: null };
+    save(); step = -1; setView("intake"); renderStep("back");
+  });
+  $("navIntake").addEventListener("click", () => {
+    if (!$("intakeView").hidden) return;
+    step = complete() ? STEPS.length - 1 : Math.max(step, 0);
+    setView("intake"); renderStep("back");
+  });
+  $("navPlan").addEventListener("click", () => { if (complete()) showDashboard(); });
+  $("brandHome").addEventListener("click", (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+  const goBook = () => { $("book").scrollIntoView({ behavior: "smooth" }); setTimeout(() => $("bName").focus({ preventScroll: true }), 500); };
+  $("navBook").addEventListener("click", goBook);
+  $("asideBook").addEventListener("click", goBook);
+
+  /* ---------------- Booking ---------------- */
+  const days = [];
+  const d = new Date(); d.setHours(12, 0, 0, 0);
+  while (days.length < 5) {
+    d.setDate(d.getDate() + 1);
+    if (d.getDay() !== 0 && d.getDay() !== 6) days.push(new Date(d));
+  }
+  const TIMES = [["morning", "Morning", "9 to 12"], ["afternoon", "Afternoon", "12 to 5"], ["evening", "Evening", "5 to 8"]];
+  $("dayChips").innerHTML = days.map((dt, i) => {
+    const id = `day${i}`;
+    const wd = dt.toLocaleDateString("en-US", { weekday: "short" });
+    const md = dt.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    return `<div class="chip day"><input type="radio" name="day" id="${id}" value="${dt.toISOString().slice(0, 10)}" data-label="${dt.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}">
+      <label for="${id}">${wd}<small>${md}</small></label></div>`;
+  }).join("");
+  $("timeChips").innerHTML = TIMES.map(([v, n, r]) =>
+    `<div class="chip"><input type="radio" name="time" id="t-${v}" value="${v}" data-label="${n.toLowerCase()} (${r})">
+      <label for="t-${v}">${n} <span style="color:inherit;opacity:.7">${r}</span></label></div>`).join("");
+
+  const bookForm = $("bookForm");
+  bookForm.addEventListener("change", () => { $("bTimeErr").textContent = ""; });
+  ["bName", "bEmail"].forEach(id => $(id).addEventListener("input", () => { $(id).removeAttribute("aria-invalid"); $(id + "Err").textContent = ""; }));
+
+  bookForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = $("bName").value.trim();
+    const email = $("bEmail").value.trim();
+    const day = bookForm.querySelector("input[name=day]:checked");
+    const time = bookForm.querySelector("input[name=time]:checked");
+    let firstBad = null;
+    const fail = (id, errId, msg) => { if (id) $(id).setAttribute("aria-invalid", "true"); $(errId).textContent = msg; firstBad = firstBad || (id ? $(id) : $("day0")); };
+    if (!name) fail("bName", "bNameErr", "Enter your name so your coach knows who to expect.");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) fail("bEmail", "bEmailErr", "Enter an email address like name@example.com.");
+    if (!day || !time) fail(null, "bTimeErr", "Choose a day and a time of day.");
+    if (firstBad) { firstBad.focus(); return; }
+
+    const request = {
+      name, email,
+      preferredDay: day.value, preferredTime: time.value,
+      notes: $("bNotes").value.trim(),
+      intake: complete() ? { ...state, ...(({ rate, months, levelName }) => ({ savingsRate: Math.round(rate * 100), cushionMonths: Number.isFinite(months) ? +months.toFixed(1) : null, health: levelName }))(analyze(state)) } : null,
+      requestedAt: new Date().toISOString()
+    };
+
+    const btn = bookForm.querySelector("button[type=submit]");
+    btn.disabled = true; btn.textContent = "Sending request";
+    try {
+      if (BOOKING_ENDPOINT) {
+        const res = await fetch(BOOKING_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(request) });
+        if (!res.ok) throw new Error(res.status);
+      }
+      try {
+        const list = JSON.parse(localStorage.getItem(STORE_KEY + ".bookings") || "[]");
+        list.push(request); localStorage.setItem(STORE_KEY + ".bookings", JSON.stringify(list));
+      } catch (err) {}
+    } catch (err) {
+      btn.disabled = false; btn.textContent = "Request consultation";
+      $("bTimeErr").textContent = "Your request didn't go through. Check your connection and try again.";
+      return;
+    }
+
+    const esc = (t) => t.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+    $("bookingArea").innerHTML = `
+      <div class="confirm" tabindex="-1" id="confirmBox">
+        <div class="check"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#1D5545" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Consultation requested</h3>
+        <p>Thanks, ${esc(name.split(" ")[0])}. We'll email you at <strong>${esc(email)}</strong> within one business day with a confirmed time and a video link.</p>
+        <dl>
+          <dt>Preferred day</dt><dd>${day.dataset.label}</dd>
+          <dt>Time of day</dt><dd>${time.dataset.label}</dd>
+          ${request.intake ? `<dt>Your plan</dt><dd>Shared with your coach</dd>` : ""}
+        </dl>
+      </div>`;
+    $("confirmBox").focus();
+  });
+
+  /* ---------------- Init ---------------- */
+  $("year").textContent = new Date().getFullYear();
+  buildWaypoints();
+  load();
+  if (complete()) { step = STEPS.length; showDashboard(); }
+  else { setView("intake"); renderStep(); }
+})();
+</script>
+</body>
+</html>
