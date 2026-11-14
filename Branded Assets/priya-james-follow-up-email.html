@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Priya and James Follow-up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1A1A2E;
+    --sand: #E8D5B7;
+    --gold: #C9A96E;
+    --white: #FFFFFF;
+    --paper: #FAF7F2;
+
+    --font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-body: 'Nunito Sans', 'Segoe UI', Helvetica, Arial, sans-serif;
+
+    --bg: var(--paper);
+    --card: var(--white);
+    --text: var(--navy);
+    --band: var(--sand);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12121F;
+      --card: var(--navy);
+      --text: var(--sand);
+      --band: #12121F;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12121F;
+    --card: var(--navy);
+    --text: var(--sand);
+    --band: #12121F;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 48px 16px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .meta {
+    max-width: 600px;
+    margin: 0 auto 16px;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    opacity: 0.75;
+  }
+  .meta strong { font-weight: 700; }
+
+  .email {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--card);
+    border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent);
+  }
+
+  .masthead {
+    padding: 40px 40px 28px;
+    text-align: center;
+  }
+  .brand {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .rule {
+    width: 48px;
+    height: 1px;
+    margin: 18px auto 0;
+    background: var(--gold);
+    border: 0;
+  }
+
+  .band {
+    background: var(--band);
+    padding: 44px 40px;
+    text-align: center;
+  }
+  .band h1 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(28px, 6vw, 38px);
+    line-height: 1.2;
+    color: var(--text);
+  }
+
+  .body { padding: 40px; }
+  .body p { margin: 0 0 20px; }
+
+  .cta { margin: 32px 0 36px; text-align: center; }
+  .button {
+    display: inline-block;
+    padding: 14px 28px;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+  }
+
+  .closing {
+    margin: 0 0 6px;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 24px;
+    color: var(--text);
+  }
+  .signoff { margin: 0; font-weight: 600; }
+
+  .footer {
+    padding: 24px 40px 32px;
+    text-align: center;
+    font-size: 13px;
+    border-top: 1px solid color-mix(in srgb, var(--gold) 40%, transparent);
+  }
+  .footer .tagline {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 17px;
+    font-style: italic;
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 24px 16px; }
+    .masthead, .band, .body, .footer { padding-left: 24px; padding-right: 24px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="meta">
+    <div><strong>To:</strong> Priya and James</div>
+    <div><strong>Subject:</strong> Your golden hour at the gardens</div>
+  </div>
+
+  <article class="email">
+    <header class="masthead">
+      <p class="brand">Kai Lens Studio</p>
+      <hr class="rule">
+    </header>
+
+    <div class="band">
+      <h1>An evening worth keeping</h1>
+    </div>
+
+    <div class="body">
+      <p>Dear Priya and James,</p>
+
+      <p>Thank you for an evening in the botanical gardens we will remember for a long time. The light settled low and warm through the leaves, and somewhere between the rose arbor and the long path, the two of you stopped posing and simply walked, laughed and leaned in. That is where your story lives.</p>
+
+      <p>We are now working through every frame with care. Your finished gallery will arrive within 10 days, each image edited by hand so it feels as true as the evening itself.</p>
+
+      <p>As your wedding day comes into view, we would love to tell the next chapter with you. Our wedding collections carry the same unhurried, intentional craft you felt at the gardens, from intimate ceremonies to full-day celebrations. Reply to this email and we will send you the collections guide.</p>
+
+      <div class="cta">
+        <!-- Replace # with the link to the wedding collections guide -->
+        <a class="button" href="#">View the wedding collections</a>
+      </div>
+
+      <p class="closing">Your moment, preserved.</p>
+      <p class="signoff">Kai Lens Studio</p>
+    </div>
+
+    <footer class="footer">
+      <p class="tagline">Your story, beautifully told</p>
+    </footer>
+  </article>
+
+</body>
+</html>

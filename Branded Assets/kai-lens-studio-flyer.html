@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio Flyer Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1A1A2E;
+    --sand: #E8D5B7;
+    --gold: #C9A96E;
+    --white: #FFFFFF;
+    --paper: #FAF7F2;
+
+    --font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-body: 'Nunito Sans', 'Segoe UI', Helvetica, Arial, sans-serif;
+
+    --page-bg: var(--sand);
+    --page-text: var(--navy);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --page-bg: #12121F; --page-text: var(--sand); }
+  }
+  :root[data-theme="dark"] { --page-bg: #12121F; --page-text: var(--sand); }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 16px;
+    background: var(--page-bg);
+    color: var(--page-text);
+    font-family: var(--font-body);
+  }
+  .note {
+    max-width: 680px;
+    margin: 0 auto 14px;
+    font-size: 13px;
+    opacity: 0.8;
+  }
+
+  /* US Letter, 8.5 x 11 in. Positions are inches converted to percentages
+     (top / 11, left and width / 8.5). Font sizes are points converted to
+     container width: 1pt = 100/612 cqw. */
+  .flyer {
+    position: relative;
+    max-width: 680px;
+    margin: 0 auto;
+    aspect-ratio: 8.5 / 11;
+    background: var(--paper);
+    color: var(--navy);
+    container-type: inline-size;
+    overflow: hidden;
+  }
+  .flyer > * { position: absolute; margin: 0; }
+
+  /* 0 - 0.9 in: navy header band */
+  .masthead {
+    top: 0; left: 0; right: 0; height: 8.18%;
+    background: var(--navy);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1.1cqw;
+  }
+  .brand {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.96cqw;              /* 12pt */
+    letter-spacing: 0.34em;
+    padding-left: 0.34em;            /* balances trailing letter-spacing */
+    text-transform: uppercase;
+    color: var(--sand);
+  }
+  .rule {
+    display: block;
+    width: 7.06cqw;                  /* 0.6 in */
+    height: 0; border: 0;
+    border-top: max(1px, 0.16cqw) solid var(--gold);   /* 1pt */
+  }
+
+  /* 0.9 - 6.57 in: full-bleed photograph, 8.5 x 5.67 in (3:2, uncropped) */
+  .photo {
+    top: 8.18%; left: 0;
+    width: 100%; height: 51.55%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .tagline {
+    top: 61.82%; left: 0; right: 0;  /* 6.8 in */
+    text-align: center;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 6.21cqw;              /* 38pt */
+    line-height: 1.1;
+  }
+
+  .intro {
+    top: 68.18%; left: 17.06%; width: 65.88%;   /* 7.5 in, 5.6 in wide */
+    text-align: center;
+    font-size: 1.8cqw;               /* 11pt */
+    line-height: 1.55;
+  }
+
+  .rule-mid { top: 75.45%; left: 46.47%; }      /* 8.3 in */
+
+  .collections {
+    top: 76.82%; left: 5.88%; width: 88.24%;    /* 8.45 in, 7.5 in wide */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3.53cqw;                    /* 0.3 in */
+    text-align: center;
+  }
+  .collections h2 {
+    margin: 0 0 0.8cqw;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.96cqw;              /* 12pt */
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .collections p {
+    margin: 0;
+    font-size: 1.55cqw;              /* 9.5pt */
+    line-height: 1.5;
+  }
+
+  .button {
+    top: 85.91%; left: 35.88%;       /* 9.45 in */
+    width: 28.24%; height: 4.09%;    /* 2.4 x 0.45 in */
+    display: flex; align-items: center; justify-content: center;
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 1.63cqw;              /* 10pt */
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+
+  .closing {
+    top: 91.82%; left: 0; right: 0;  /* 10.1 in */
+    text-align: center;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 2.29cqw;              /* 14pt */
+  }
+  .contact {
+    top: 95%; left: 0; right: 0;     /* 10.45 in */
+    text-align: center;
+    font-size: 1.47cqw;              /* 9pt */
+    letter-spacing: 0.06em;
+  }
+  .contact .dot { color: var(--gold); padding: 0 0.8cqw; }
+</style>
+</head>
+<body>
+
+  <p class="note">Flyer preview, US Letter (8.5 × 11 in). Replace the bracketed contact details before printing.</p>
+
+  <article class="flyer" aria-label="Kai Lens Studio flyer">
+    <header class="masthead">
+      <p class="brand">Kai Lens Studio</p>
+      <hr class="rule">
+    </header>
+
+    <img class="photo" src="Hero%20Photo.png"
+         alt="A couple embracing on a coastal cliff at sunset, foreheads touching, the bride holding roses and pampas grass">
+
+    <h1 class="tagline">Your story, beautifully told</h1>
+
+    <p class="intro">Last light on the water, a hand at the cheek, a breath held between you. We photograph the people and days that matter, with an unhurried approach and a quiet eye for what is real.</p>
+
+    <hr class="rule rule-mid">
+
+    <section class="collections">
+      <div>
+        <h2>Portraits</h2>
+        <p>Individual, family and self-portraits shaped by natural light.</p>
+      </div>
+      <div>
+        <h2>Engagements</h2>
+        <p>An evening for the two of you, in a place that already feels like yours.</p>
+      </div>
+      <div>
+        <h2>Weddings</h2>
+        <p>Your day from first light to last dance, told with timeless, intentional craft.</p>
+      </div>
+    </section>
+
+    <a class="button" href="#">Begin your session</a>
+
+    <p class="closing">Let's tell your story.</p>
+    <p class="contact">[website]<span class="dot">·</span>[email]<span class="dot">·</span>[phone]<span class="dot">·</span>[@instagram]</p>
+  </article>
+
+</body>
+</html>

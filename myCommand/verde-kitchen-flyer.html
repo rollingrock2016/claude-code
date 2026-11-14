@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verde Kitchen Flyer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde-green: #2D5A27;
+    --verde-cream: #FAF3E0;
+    --verde-terracotta: #C4704F;
+    --verde-ink: #1F2A1D;
+    --verde-green-soft: rgba(45, 90, 39, 0.07);
+    --verde-green-line: rgba(45, 90, 39, 0.18);
+    --font-heading: 'Josefin Sans', Arial, sans-serif;
+    --font-body: 'Source Sans Pro', 'Source Sans 3', Helvetica, sans-serif;
+
+    /* Colors for the page around the flyer (not the flyer itself). */
+    --page-bg: #E9E2CF;
+    --page-text: var(--verde-ink);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --page-bg: #151B14; --page-text: var(--verde-cream); }
+  }
+  :root[data-theme="dark"] { --page-bg: #151B14; --page-text: var(--verde-cream); }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 16px;
+    background: var(--page-bg);
+    color: var(--page-text);
+    font-family: var(--font-body);
+  }
+  .note {
+    max-width: 720px;
+    margin: 0 auto 14px;
+    font-size: 13px;
+    opacity: 0.8;
+  }
+
+  /* US Letter, 8.5 x 11 in. All sizes inside the flyer are in container-width
+     units (cqw), so the layout scales as one piece on screen and in print. */
+  .flyer {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    aspect-ratio: 8.5 / 11;
+    container-type: inline-size;
+    background: var(--verde-cream);
+    color: var(--verde-ink);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 18px 50px rgba(31, 42, 29, 0.22);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    height: 41cqw;
+    flex: none;
+  }
+  .hero img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% 35%;
+  }
+  .hero::after {           /* soft fade into the cream page below */
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 7cqw;
+    background: linear-gradient(to bottom, rgba(250, 243, 224, 0), var(--verde-cream));
+  }
+  .brand {
+    position: absolute;
+    top: 4.5cqw;
+    left: 5cqw;
+    display: flex;
+    align-items: center;
+    gap: 1.4cqw;
+    padding: 1.3cqw 2.6cqw 1.3cqw 1.6cqw;
+    background: var(--verde-cream);
+    border-radius: 99px;
+    box-shadow: 0 0.6cqw 2cqw rgba(31, 42, 29, 0.18);
+    z-index: 2;
+  }
+  .brand svg { width: 3.6cqw; height: 3.6cqw; }
+  .brand span {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 2.6cqw;
+    letter-spacing: 0.04em;
+    color: var(--verde-green);
+    padding-top: 0.3cqw;      /* Josefin sits high in its line box */
+  }
+  .sticker {
+    position: absolute;
+    right: 5cqw;
+    bottom: -5cqw;
+    width: 21cqw;
+    height: 21cqw;
+    border-radius: 50%;
+    background: var(--verde-terracotta);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transform: rotate(-8deg);
+    box-shadow: 0 1cqw 3cqw rgba(31, 42, 29, 0.25);
+    outline: 0.5cqw dashed rgba(255, 255, 255, 0.55);
+    outline-offset: -1.6cqw;
+    z-index: 3;
+  }
+  .sticker b {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 7cqw;
+    line-height: 1;
+    padding-top: 0.8cqw;
+  }
+  .sticker small {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.9cqw;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.3;
+    margin-top: 0.6cqw;
+  }
+
+  /* ---------- Intro ---------- */
+  .intro {
+    position: relative;
+    z-index: 2;
+    padding: 0 7cqw;
+    margin-top: -2cqw;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.8cqw;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--verde-green);
+    border-bottom: 0.3cqw solid var(--verde-green);
+    padding-bottom: 0.6cqw;
+    margin: 0 0 1.8cqw;
+  }
+  h1 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 5.6cqw;
+    line-height: 1.08;
+    color: var(--verde-green);
+    margin: 0 0 1.8cqw;
+    max-width: 64cqw;
+  }
+  .lede {
+    font-size: 2.45cqw;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 74cqw;
+  }
+  .lede strong { color: var(--verde-green); }
+
+  /* ---------- Promotion ---------- */
+  .promo {
+    margin: 3.2cqw 7cqw 3cqw;
+    padding: 3cqw 4cqw;
+    background: var(--verde-green-soft);
+    border: 0.2cqw solid var(--verde-green-line);
+    border-radius: 2.4cqw;
+  }
+  .promo h2 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 3cqw;
+    color: var(--verde-green);
+    margin: 0 0 2.2cqw;
+  }
+  .perks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3cqw;
+    margin: 0 0 2.4cqw;
+    padding: 0;
+    list-style: none;
+  }
+  .perks .icon {
+    width: 6cqw;
+    height: 6cqw;
+    border-radius: 50%;
+    background: var(--verde-green);
+    display: grid;
+    place-items: center;
+    margin-bottom: 1.4cqw;
+  }
+  .perks .icon svg { width: 3.2cqw; height: 3.2cqw; }
+  .perks h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 2.2cqw;
+    color: var(--verde-green);
+    margin: 0 0 0.6cqw;
+  }
+  .perks p {
+    font-size: 1.85cqw;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .claim {
+    display: flex;
+    align-items: center;
+    gap: 2.4cqw;
+    padding-top: 2.6cqw;
+    border-top: 0.2cqw solid var(--verde-green-line);
+    font-size: 2cqw;
+    line-height: 1.5;
+  }
+  .code {
+    flex: none;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 2.6cqw;
+    letter-spacing: 0.14em;
+    color: var(--verde-green);
+    padding: 1.1cqw 2.2cqw 0.8cqw;
+    border: 0.3cqw dashed var(--verde-green);
+    border-radius: 1cqw;
+    background: var(--verde-cream);
+  }
+  .claim p { margin: 0; }
+
+  /* ---------- Footer CTA ---------- */
+  .footer {
+    margin-top: auto;
+    background: var(--verde-green);
+    color: var(--verde-cream);
+    padding: 3cqw 7cqw; flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4cqw;
+  }
+  .cta {
+    display: inline-block;
+    background: var(--verde-terracotta);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 2.6cqw;
+    text-decoration: none;
+    padding: 1.9cqw 3.6cqw 1.5cqw;
+    border-radius: 99px;
+    box-shadow: 0 0.6cqw 1.8cqw rgba(0, 0, 0, 0.2);
+  }
+  .footer .url {
+    display: block;
+    margin-top: 1cqw;
+    font-size: 1.9cqw;
+    opacity: 0.9;
+  }
+  .closing {
+    text-align: right;
+  }
+  .closing b {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 4cqw;
+    line-height: 1.1;
+  }
+  .closing small {
+    display: block;
+    margin-top: 1cqw;
+    font-size: 1.55cqw;
+    opacity: 0.8;
+  }
+
+  @media print {
+    @page { size: letter; margin: 0; }
+    body { padding: 0; background: none; }
+    .note { display: none; }
+    .flyer { width: 8.5in; max-width: none; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+  <p class="note">Print-ready flyer, US Letter (8.5 × 11 in). Use your browser's Print and choose "Save as PDF" or a printer, with margins set to None.</p>
+
+  <main class="flyer">
+    <section class="hero">
+      <img src="Gemini_Generated_Image_acaq27acaq27acaq.jpeg"
+           alt="A woman smiles as she enjoys a fresh, colorful grain bowl at a sunny kitchen table">
+
+      <div class="brand">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="16" fill="#2D5A27"/>
+          <path d="M9 22c0-8 6-13 15-13-1 9-6 15-13 15" fill="#FAF3E0"/>
+          <path d="M9.5 23.5c3-4.5 6.5-8 11-10.5" stroke="#2D5A27" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span>Verde Kitchen</span>
+      </div>
+
+      <div class="sticker" aria-label="30 percent off your first two weeks">
+        <b>30%</b>
+        <small>off your<br>first 2 weeks</small>
+      </div>
+    </section>
+
+    <section class="intro">
+      <p class="eyebrow">Winter Fresh Start · Dec 1–31</p>
+      <h1>Eat well. Live well. No effort required.</h1>
+      <p class="lede">Chef-made, plant-powered meals arrive at your door, ready when you are. Start this winter and <strong>your first two weeks are 30% off.</strong></p>
+    </section>
+
+    <section class="promo">
+      <h2>What you get this winter</h2>
+      <ul class="perks">
+        <li>
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FAF3E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z"/><path d="M5 19l8-8"/>
+            </svg>
+          </div>
+          <h3>Fresh every week</h3>
+          <p>Vibrant seasonal bowls, cooked by our chefs with wholesome, real ingredients.</p>
+        </li>
+        <li>
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FAF3E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5"/><path d="M10 2h4"/>
+            </svg>
+          </div>
+          <h3>Ready in minutes</h3>
+          <p>Heat, eat and enjoy. No shopping, no prep and no cleanup.</p>
+        </li>
+        <li>
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FAF3E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/>
+            </svg>
+          </div>
+          <h3>Simple and flexible</h3>
+          <p>Pause, skip or swap meals anytime. Your plan fits your week.</p>
+        </li>
+      </ul>
+      <div class="claim">
+        <span class="code">FRESHSTART</span>
+        <p>Enter this code at checkout for 30% off your first two weeks. Valid on new plans started December 1–31, 2026.</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>
+        <a class="cta" href="https://www.verdekitchen.com">Claim your 30% off</a>
+        <span class="url">verdekitchen.com</span>
+      </div>
+      <div class="closing">
+        <b>Fresh starts here.</b>
+        <small>One code per new customer. Can't be combined with other offers.</small>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
